@@ -13,21 +13,19 @@ public class Application implements WebApplicationInitializer {
 
 	@Override
 	public void onStartup(ServletContext servletContext) throws ServletException {
-//		AnnotationConfigWebApplicationContext applicationContext = buildApplicationContext();
-		AnnotationConfigWebApplicationContext webApplicationContext = new AnnotationConfigWebApplicationContext();
-		webApplicationContext.setConfigLocation("br.com.tulio.pizza_restaurant.configuration");
+		AnnotationConfigWebApplicationContext applicationContext = buildApplicationContext();
+		applicationContext.setConfigLocation("br.com.tulio.pizza_restaurant.configuration");
 //		Load Servlet right after app startup
-//		Dynamic appServlet = servletContext.addServlet("appServlet", new DispatcherServlet(applicationContext));
-		Dynamic appServlet = servletContext.addServlet("appServlet", new DispatcherServlet(webApplicationContext));
+		Dynamic appServlet = servletContext.addServlet("appServlet", new DispatcherServlet(applicationContext));
 		appServlet.setLoadOnStartup(1);
 		appServlet.addMapping("/app/*");
 		
-		servletContext.addListener(new ContextLoaderListener(webApplicationContext));
+		servletContext.addListener(new ContextLoaderListener(applicationContext));
 	}
 
-//	private AnnotationConfigWebApplicationContext buildApplicationContext() {
-//		AnnotationConfigWebApplicationContext webApplicationContext = new AnnotationConfigWebApplicationContext();
-//		webApplicationContext.setConfigLocation("br.com.tulio.pizza_restaurant.configuration");
-//		return webApplicationContext;
-//	}
+	private AnnotationConfigWebApplicationContext buildApplicationContext() {
+		AnnotationConfigWebApplicationContext webApplicationContext = new AnnotationConfigWebApplicationContext();
+		webApplicationContext.setConfigLocation("br.com.tulio.pizza_restaurant.configuration");
+		return webApplicationContext;
+	}
 }
