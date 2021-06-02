@@ -14,9 +14,9 @@ public class PizzaController {
 //	Ask Spring to instantiate an object of type PizzaRepository and to inject it here 
 	@Autowired private PizzaRepository pizzaRepository;
 
-	public PizzaController() {
-		System.out.println("Created pizza controller");
-	}
+//	public PizzaController() {
+//		System.out.println("Created pizza controller");
+//	}
 	
 //	@RequestMapping("/hello/{name}")
 //	@ResponseBody
