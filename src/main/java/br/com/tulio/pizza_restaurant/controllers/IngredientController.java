@@ -6,12 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import br.com.tulio.pizza_restaurant.exceptions.InvalidIngredientException;
 import br.com.tulio.pizza_restaurant.model.entities.Ingredient;
 import br.com.tulio.pizza_restaurant.model.enumerations.IngredientCategory;
 import br.com.tulio.pizza_restaurant.model.repositories.IngredientRepository;
@@ -46,29 +46,25 @@ public class IngredientController {
 	/* Using the @ModelAttribute annotation, the controller can access values from views
 	 * Spring will look at the view for input tags with name attributes that match the desired entity class variable names
 	 * If they match, Spring validates them and makes available in the current object
-	 * Using @Bing annotation allows a better validation of values. If not, a database exception will be thrown (hibernate)
+	 * Using @Valid annotation allows a better validation of values. If not, a database exception will be thrown (hibernate)
 	 * The validation result will be by Spring into an object of BindingResult type
 	 * Spring also allows access to previous attributes of view through the object of RedirectAttributes type*/
 	@RequestMapping(method = RequestMethod.POST)
 	public String saveIngredient(
-			@Valid @ModelAttribute Ingredient	ingredient,
+			@Valid @ModelAttribute Ingredient ingredient,
 			BindingResult bindingResult,
 			RedirectAttributes redirectAttributes) {
 
 //		Check for validation errors
 		if (bindingResult.hasErrors()) {
-			FieldError fieldError = bindingResult.getFieldErrors().get(0);
-//			Flash attributes are created only during current session and deleted on session ending.
-			redirectAttributes.addFlashAttribute("errorMessage", "It was not possible to save the Ingredient. "+
-			fieldError.getField()+" "+fieldError.getDefaultMessage());
+//			If an error occurr, throw a custom exception.
+			throw new InvalidIngredientException();
 			
 		} else {			
 //			Access validated inputs from view and save them into database
 			ingredientRepository.save(ingredient);
-			redirectAttributes.addFlashAttribute("errorInfo", "The Ingredient was saved correctly.");
 		}
 		
-//		Redirects return to the GET method above. If not, the model attributes need to be resend to view here too.
-		return "redirect:/app/ingredients";
+		return "/ingredient/table-ingredients";
 	}
 }

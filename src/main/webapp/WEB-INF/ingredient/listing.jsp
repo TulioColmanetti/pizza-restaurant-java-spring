@@ -29,42 +29,13 @@
 			</div>
 		</c:if>
 		<section class="container">
-			<table
-				class="table table-hover table-condensed table-striped table-bordered">
-				<thead>
-					<tr>
-						<th>#</th>
-						<th>Name</th>
-						<th>Category</th>
-					</tr>
-				</thead>
-				<tbody>
-					<c:forEach items="${ingredients}" var="ingredient">
-						<tr>
-							<td>${ingredient.id}</td>
-							<td>${ingredient.name}</td>
-							<td>${ingredient.category}</td>
-						</tr>
-					</c:forEach>
-				</tbody>
-				<tfoot>
-					<tr>
-						<td colspan="3">Registered ingredients: ${ingredients.size()}</td>
-					</tr>
-					<tr>
-						<td colspan="3">
-							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-ingredient">
-								Register Ingredient
-							</button>
-						</td>
-					</tr>
-				</tfoot>
-			</table>
+			<jsp:include page="table-ingredients.jsp"/>
 		</section>
 		
 		<jsp:include page="modal-ingredient.jsp" />
 	
 		<script type="text/javascript" src="${path}/static/js/jquery-2.1.3.min.js"></script>
 		<script type="text/javascript" src="${path}/static/bootstrap/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="${path}/static/js/ingredients.js"></script>
 	</body>
 </html>
