@@ -2,8 +2,12 @@
 App simulating a pizza restaurant system using Java Spring framework
 
 Technologies used:
-- Java Spring MVC framework
-- ...
+- Spring MVC
+- Hibernate
+- MySQL
+- Java Servlet and JSP
+- Maven
+- Jetty
 
 Based on training courses from Leo Silva:
 - YouTube channel: https://www.youtube.com/channel/UC4I5zgAzQMpAC44C4jH-JGA
