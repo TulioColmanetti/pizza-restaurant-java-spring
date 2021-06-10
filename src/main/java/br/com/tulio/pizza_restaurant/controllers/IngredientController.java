@@ -53,18 +53,21 @@ public class IngredientController {
 	public String saveIngredient(
 			@Valid @ModelAttribute Ingredient ingredient,
 			BindingResult bindingResult,
-			RedirectAttributes redirectAttributes) {
+			Model model) {
 
 //		Check for validation errors
 		if (bindingResult.hasErrors()) {
-//			If an error occurr, throw a custom exception.
+//			If an error occurs, throw a custom exception.
 			throw new InvalidIngredientException();
 			
-		} else {			
+		} else {
 //			Access validated inputs from view and save them into database
 			ingredientRepository.save(ingredient);
 		}
 		
+		model.addAttribute("ingredients", ingredientRepository.findAll());
+		
+//		Return only the table page with new data added (SPA), and not the entire page.
 		return "/ingredient/table-ingredients";
 	}
 }

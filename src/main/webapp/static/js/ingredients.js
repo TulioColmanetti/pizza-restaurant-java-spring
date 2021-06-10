@@ -6,12 +6,17 @@ $(document).ready(function(){
 		var ingredientData = $('#form-ingredient').serialize();
 		
 		$.post(url, ingredientData)
-			.done(function(){
-				alert('Ingredient saved successfully!');
+			.done(function(page){
+				$('#section-ingredients').html(page);
+				//alert('Ingredient saved successfully!');
 				
 			})
 			.fail(function(){
 				alert('Failed to save Ingredient!');
+				
+			})
+			.always(function(){
+				$('#modal-ingredient').modal('hide');
 				
 			});
 	

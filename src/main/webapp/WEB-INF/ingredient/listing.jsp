@@ -28,7 +28,7 @@
 				<div class="alert alert-info">${errorInfo}</div>
 			</div>
 		</c:if>
-		<section class="container">
+		<section class="container" id="section-ingredients">
 			<jsp:include page="table-ingredients.jsp"/>
 		</section>
 		
