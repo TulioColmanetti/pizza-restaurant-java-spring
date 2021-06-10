@@ -15,7 +15,6 @@ public class Application implements WebApplicationInitializer {
 	@Override
 	public void onStartup(ServletContext servletContext) throws ServletException {
 		AnnotationConfigWebApplicationContext applicationContext = buildApplicationContext();
-		applicationContext.setConfigLocation("br.com.tulio.pizza_restaurant.configuration");
 //		Load Servlet right after app startup
 		Dynamic appServlet = servletContext.addServlet("appServlet", new DispatcherServlet(applicationContext));
 		appServlet.setLoadOnStartup(1);

@@ -8,7 +8,7 @@ $(document).ready(function(){
 		$.post(url, ingredientData)
 			.done(function(page){
 				$('#section-ingredients').html(page);
-				//alert('Ingredient saved successfully!');
+				alert('Ingredient saved successfully!');
 				
 			})
 			.fail(function(){
