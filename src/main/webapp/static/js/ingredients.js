@@ -6,12 +6,14 @@ $(document).ready(function() {
 var applyListeners = function() {
 	$('.btn-delete').on('click', function() {
 		var id = $(this).parents('tr').data('id');
+		var ingredients = $('#quantity-ingredients').text();
 		
 		$.ajax({
 			url: "ingredients/"+id,
 			type: 'DELETE',
 			success: function(result) {
 				$('tr[data-id="'+id+'"]').remove();
+				$('#quantity-ingredients').text(ingredients - 1);
 			}
 		});
 	});
