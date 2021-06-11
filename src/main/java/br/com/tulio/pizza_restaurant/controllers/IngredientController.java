@@ -3,10 +3,13 @@ package br.com.tulio.pizza_restaurant.controllers;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -68,5 +71,15 @@ public class IngredientController {
 		
 //		Return only the table page with new data added (SPA), and not the entire page.
 		return "/ingredient/table-ingredients";
+	}
+	
+	@RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
+	public ResponseEntity<String> deleteIngredient(@PathVariable Long id) {
+		try {
+			ingredientRepository.delete(id);
+			return new ResponseEntity<String>(HttpStatus.OK);
+		} catch (Exception ex) {
+			return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+		}
 	}
 }

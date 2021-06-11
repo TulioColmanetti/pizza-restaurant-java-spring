@@ -13,23 +13,25 @@
 			<th>#</th>
 			<th>Name</th>
 			<th>Category</th>
+			<th>Delete</th>
 		</tr>
 	</thead>
 	<tbody>
 		<c:forEach items="${ingredients}" var="ingredient">
-			<tr>
+			<tr data-id="${ingredient.id}">
 				<td>${ingredient.id}</td>
 				<td>${ingredient.name}</td>
 				<td>${ingredient.category}</td>
+				<td><button type="button" class="btn btn-danger btn-delete">Delete</button></td>
 			</tr>
 		</c:forEach>
 	</tbody>
 	<tfoot>
 		<tr>
-			<td colspan="3">Registered ingredients: ${ingredients.size()}</td>
+			<td colspan="4">Registered ingredients: ${ingredients.size()}</td>
 		</tr>
 		<tr>
-			<td colspan="3">
+			<td colspan="4">
 				<button type="button" class="btn btn-primary" data-toggle="modal"
 					data-target="#modal-ingredient">Register Ingredient</button>
 			</td>
