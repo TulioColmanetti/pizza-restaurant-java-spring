@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import br.com.tulio.pizza_restaurant.exceptions.InvalidIngredientException;
 import br.com.tulio.pizza_restaurant.model.entities.Ingredient;
@@ -21,6 +22,8 @@ import br.com.tulio.pizza_restaurant.model.repositories.IngredientRepository;
 //	/app/ingredients (GET method) -> list ingredients
 //	/app/ingredients (POST method) -> save ingredient
 
+/* If all methods of the controller should return a response body, we could annotate the controller as @RestController,
+ * instead of @Controller */
 @Controller
 @RequestMapping("/ingredients")
 public class IngredientController {
@@ -63,7 +66,8 @@ public class IngredientController {
 			throw new InvalidIngredientException();
 			
 		} else {
-//			Access validated inputs from view and save them into database
+			/* Access validated inputs from view and save them into database.
+			 * If passing an object with id, Spring Data will try to edit it instead of create a new one. */
 			ingredientRepository.save(ingredient);
 		}
 		
@@ -81,5 +85,15 @@ public class IngredientController {
 		} catch (Exception ex) {
 			return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
 		}
+	}
+	
+	/* Using @ResponseBody here tells Spring to return a body, in this case a JSON, instead of the default behavior 
+	 * of looking for a page and return it as a view. Not needed when annotating the controller as @RestController. */
+	@RequestMapping(method = RequestMethod.GET, value = "/{id}")
+	@ResponseBody
+	public Ingredient searchIngredient(@PathVariable Long id) {
+		Ingredient ingredient = ingredientRepository.findOne(id);
+
+		return ingredient;
 	}
 }
