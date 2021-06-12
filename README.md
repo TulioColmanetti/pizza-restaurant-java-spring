@@ -6,6 +6,7 @@ Technologies used:
 - Hibernate
 - MySQL
 - Java Servlet and JSP
+- JQuery and Bootstrap
 - Maven
 - Jetty
 
